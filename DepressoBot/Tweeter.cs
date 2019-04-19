@@ -10,7 +10,7 @@ namespace DepressoBot
 {
     class Tweeter
     {
-        public static void BeginTweet(string tweet)
+        public static void tweeter(string tweet)
         {
             TwitterService service = Authenticate();
             service.SendTweet(new SendTweetOptions { Status = tweet }, (Tweet, response) =>

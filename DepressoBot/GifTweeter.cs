@@ -25,8 +25,8 @@ namespace DepressoBot
                     {
                         if (tweet.Text.ToLower().Contains("depresso"))
                         {
-                            Console.WriteLine("we innit");
-                            using (var stream = new FileStream(@"C:\Users\TEVERTS\OneDrive - KNEX\Desktop\signalBoost.gif", FileMode.Open, FileAccess.Read, FileShare.Read))
+                            //Console.WriteLine("we innit");
+                            using (var stream = new FileStream(@"marvin.gif", FileMode.Open, FileAccess.Read, FileShare.Read))
                             {
                                 int length = Convert.ToInt32(stream.Length);
                                 var initOptions = new UploadMediaInitOptions();

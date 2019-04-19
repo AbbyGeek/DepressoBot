@@ -23,6 +23,7 @@ namespace DepressoBot
             Console.WriteLine("The application started at {0:HH:mm:ss.fff}", DateTime.Now);
             string tweet = Generator.GenerateTweet();
             Tweeter.tweeter(tweet);
+            GifTweeter.Booty();
             Console.ReadLine();
             aTimer.Stop();
             aTimer.Dispose();
