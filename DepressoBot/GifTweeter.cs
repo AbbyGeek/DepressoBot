@@ -11,15 +11,18 @@ namespace DepressoBot
 {
     class GifTweeter
     {
+        private static long since_Id = 1119363411220025344;
         public static void Booty()
         {
             var service = Tweeter.Authenticate();
-            var options = new SearchOptions() { Count = 100, Q = "depresso", Lang="en", Until=DateTime.Now.AddMinutes(-5) };
-            while (true)
-            {
+            
+            var options = new SearchOptions() { Count = 10, Q = "depresso", Lang="en", SinceId = since_Id};
+            
                 var tweets = service.Search(options);
                 if (tweets.Statuses.ToList().Count > 0)
                 {
+                    var listoftweets = tweets.Statuses.ToList();
+                    since_Id = listoftweets[0].Id;
                     options.SinceId = tweets.Statuses.ToList()[0].Id;
                     foreach (var tweet in tweets.Statuses)
                     {
@@ -42,7 +45,7 @@ namespace DepressoBot
                                 appendOptions.SegmentIndex = 0;
                                 service.UploadMediaAppend(appendOptions);
                                 Console.WriteLine("Uploading Gif......");
-                                Thread.Sleep(20000);
+                                Thread.Sleep(10000);
                                 var uploadOptions = new UploadMediaFinalizeOptions();
                                 uploadOptions.MediaId = uploadedMedia.MediaId;
                                 var final = service.UploadMediaFinalize(uploadOptions);
@@ -53,18 +56,21 @@ namespace DepressoBot
                                 service.SendTweet(sendOptions);
                             }
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine($"[{DateTime.Now}]Sent tweet in response to \"{tweet.Text}\", @{tweet.User}");
+                            Console.WriteLine($"[{DateTime.Now}]Sent tweet in response to \"{tweet.Text}\", @{tweet.Author}, ORiginal Tweet Time {tweet.CreatedDate}");
                             Console.ResetColor();
                         }
                     }
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"[{DateTime.Now}] Finished this Crawl");
+                Console.ResetColor();
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("No tweets found matching criteria this crawl");
+                    Console.WriteLine($"[{DateTime.Now}] No tweets found matching criteria this crawl");
                     Console.ResetColor();
                 }
-            }
+            
         }
     }
 }
