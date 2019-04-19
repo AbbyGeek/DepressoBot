@@ -10,9 +10,9 @@ namespace DepressoBot
 {
     class Tweeter
     {
-        public static void tweeter(string tweet)
+        public static void BeginTweet(string tweet)
         {
-            TwitterService service = authenticate();
+            TwitterService service = Authenticate();
             service.SendTweet(new SendTweetOptions { Status = tweet }, (Tweet, response) =>
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -35,7 +35,7 @@ namespace DepressoBot
 
 
 
-        private static TwitterService authenticate()
+        public static TwitterService Authenticate()
         {
             string[] lines = File.ReadAllLines("settings.txt");
             string _customerKey = lines[0];
