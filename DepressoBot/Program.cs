@@ -17,7 +17,9 @@ namespace DepressoBot
         {
 
 
-            SetTimer();
+            SetTweetTimer(60);
+            SetReplyTimer(5);
+            
 
             Console.WriteLine("\nPress the Enter key to exit the application...\n");
             Console.WriteLine("The application started at {0:HH:mm:ss.fff}", DateTime.Now);
@@ -32,22 +34,35 @@ namespace DepressoBot
 
         }
 
-        private static void SetTimer()
+        public static void SetTweetTimer(int min)
         {
-            //create timer with 1 min interval
-            aTimer = new Timer(60000 * 60);
+            aTimer = new Timer(1000 * 60 * min);
             //Set event to occur when time has elapsed
-            aTimer.Elapsed += OnTimedEvent;
+            aTimer.Elapsed += TweetOnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
-
         }
 
 
-        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+        private static void TweetOnTimedEvent(Object source, ElapsedEventArgs e)
         {
             string tweet = Generator.GenerateTweet();
-            Tweeter.tweeter(tweet);
+            //Tweeter.tweeter(tweet);
+        }
+
+        public static void SetReplyTimer(int min)
+        {
+            aTimer = new Timer(1000 * 60 * min);
+            //Set event to occur when time has elapsed
+            aTimer.Elapsed += ReplyOnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+        }
+
+
+        private static void ReplyOnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            GifTweeter.Booty();
         }
 
 

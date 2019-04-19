@@ -14,7 +14,7 @@ namespace DepressoBot
         public static void Booty()
         {
             var service = Tweeter.Authenticate();
-            var options = new SearchOptions() { Count = 100, Q = "depresso" };
+            var options = new SearchOptions() { Count = 100, Q = "depresso", Lang="en", Until=DateTime.Now.AddMinutes(-5) };
             while (true)
             {
                 var tweets = service.Search(options);
@@ -23,7 +23,7 @@ namespace DepressoBot
                     options.SinceId = tweets.Statuses.ToList()[0].Id;
                     foreach (var tweet in tweets.Statuses)
                     {
-                        if (tweet.Text.ToLower().Contains("depresso"))
+                        if (tweet.Text.ToLower().Contains("depresso") && !tweet.IsRetweeted)
                         {
                             //Console.WriteLine("we innit");
                             using (var stream = new FileStream(@"marvin.gif", FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -41,7 +41,7 @@ namespace DepressoBot
                                 appendOptions.Media = media;
                                 appendOptions.SegmentIndex = 0;
                                 service.UploadMediaAppend(appendOptions);
-                                Console.WriteLine("Sleeping to wait for upload...");
+                                Console.WriteLine("Uploading Gif......");
                                 Thread.Sleep(20000);
                                 var uploadOptions = new UploadMediaFinalizeOptions();
                                 uploadOptions.MediaId = uploadedMedia.MediaId;
@@ -52,13 +52,17 @@ namespace DepressoBot
                                 sendOptions.InReplyToStatusId = tweet.Id;
                                 service.SendTweet(sendOptions);
                             }
-                            Console.WriteLine($"Sent tweet in response to \"{tweet.Text}\", @{tweet.User}");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"[{DateTime.Now}]Sent tweet in response to \"{tweet.Text}\", @{tweet.User}");
+                            Console.ResetColor();
                         }
                     }
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("No tweets found matching criteria this crawl");
+                    Console.ResetColor();
                 }
             }
         }
