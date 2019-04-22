@@ -15,11 +15,14 @@ namespace DepressoBot
         private static Timer aTimer;
         static void Main()
         {
-
-
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    Console.WriteLine(Generator.GenerateTweet());
+            //}
+            //Console.ReadKey();
             SetTweetTimer(60);
             SetReplyTimer(5);
-            
+
 
             Console.WriteLine("\nPress the Enter key to exit the application...\n");
             Console.WriteLine("The application started at {0:HH:mm:ss.fff}", DateTime.Now);
