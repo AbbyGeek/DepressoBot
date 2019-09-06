@@ -32,9 +32,6 @@ namespace DepressoBot
             });
         }
 
-
-
-
         public static TwitterService Authenticate()
         {
             string[] lines = File.ReadAllLines("settings.txt");
@@ -42,7 +39,6 @@ namespace DepressoBot
             string _customerSecret = lines[1];
             string _accessToken = lines[2];
             string _accessSecret = lines[3];
-
 
             TwitterService service = new TwitterService(_customerKey, _customerSecret, _accessToken, _accessSecret);
 
