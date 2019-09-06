@@ -26,7 +26,7 @@ namespace DepressoBot
                     options.SinceId = tweets.Statuses.ToList()[0].Id;
                     foreach (var tweet in tweets.Statuses)
                     {
-                        if (tweet.Text.ToLower().Contains("depresso") && !tweet.IsRetweeted)
+                        if (tweet.Text.ToLower().Contains("depresso") && !tweet.IsRetweeted && !SpamStopper.GetSetRecentVictim(tweet.User.Email))
                         {
                             //Console.WriteLine("we innit");
                             using (var stream = new FileStream(@"marvin.gif", FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -56,7 +56,7 @@ namespace DepressoBot
                                 service.SendTweet(sendOptions);
                             }
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine($"[{DateTime.Now}]Sent tweet in response to \"{tweet.Text}\", @{tweet.Author}, ORiginal Tweet Time {tweet.CreatedDate}");
+                            Console.WriteLine($"[{DateTime.Now}]Sent tweet in response to \"{tweet.Text}\", @{tweet.Author}, Original Tweet Time {tweet.CreatedDate}");
                             Console.ResetColor();
                         }
                     }

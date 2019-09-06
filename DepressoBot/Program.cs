@@ -33,8 +33,6 @@ namespace DepressoBot
             aTimer.Stop();
             aTimer.Dispose();
             Console.WriteLine("Terminating the application...");
-
-
         }
 
         public static void SetTweetTimer(int min)
@@ -67,9 +65,6 @@ namespace DepressoBot
         {
             GifTweeter.Booty();
         }
-
-
-
     }
 }
 
